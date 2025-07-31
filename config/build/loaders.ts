@@ -19,12 +19,18 @@ export const loaders = ({isDev}: BuildOptions): webpack.RuleSetRule[] => {
     exclude: /node_modules/,
   }
 
-  const cssLoader = buildCssLoader(isDev)
+  const cssLoader = {
+    test: /\.css$/i,
+    use: ["style-loader", "css-loader"],
+  }
+
+  const scssLoader = buildCssLoader(isDev)
 
 
   return [
     fileLoader,
     typescriptLoader,
-    cssLoader
+    cssLoader,
+    scssLoader
   ]
 }

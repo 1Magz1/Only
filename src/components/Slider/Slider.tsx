@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
-const Index = () => {
+const Slider = () => {
   return (
     <Swiper
       modules={[Navigation, Pagination]}
@@ -21,4 +21,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Slider;

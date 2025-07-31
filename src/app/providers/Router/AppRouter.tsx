@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import {MainPage} from "pages/MainPage";
+import {MainPageAsync} from "pages/MainPage/MainPage.async";
 
 function AppRouter() {
   return (
@@ -12,7 +12,7 @@ function AppRouter() {
       )}
       >
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" element={<MainPageAsync />} />
         </Routes>
       </Suspense>
     </div>
