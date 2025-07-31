@@ -1,15 +1,20 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from '@/pages/Home';
+import './styles/index.scss';
+import { Suspense } from 'react';
+import AppRouter from 'app/providers/Router/AppRouter';
 
-const App = () => {
+function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </Router>
+    <div className="app" id="app">
+      <Suspense fallback={(
+        <div style={{ height: '100vw' }}>
+          ...
+        </div>
+      )}
+      >
+        <AppRouter />
+      </Suspense>
+    </div>
   );
-};
+}
 
 export default App;
