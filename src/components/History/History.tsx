@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
 import SwiperCore from 'swiper';
-import cls from './Slide.module.scss';
+import cls from './History.module.scss';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -10,21 +10,21 @@ import Quantity from "components/Quantity/Quantity";
 import CircleWithPoints from "components/CircleWithPoints/CircleWithPoints";
 
 export interface Slide {
-  title: string;
+  title: number;
   description: string;
 }
 
-export interface History {
+export interface DatePoint {
   from: number;
   to: number;
   slides: Slide[];
 }
 
 interface SliderProps {
-  history: History[];
+  history: DatePoint[];
 }
 
-const Slider = ({ history }: SliderProps) => {
+const History = ({ history }: SliderProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -138,4 +138,4 @@ const Slider = ({ history }: SliderProps) => {
   );
 };
 
-export default Slider;
+export default History;

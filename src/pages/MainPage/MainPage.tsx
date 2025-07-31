@@ -1,6 +1,6 @@
 import cls from './MainPage.module.scss'
-import Slider, {History} from "components/Slider/Slider";
-const history = [
+import History, {DatePoint} from "components/History/History";
+const history: DatePoint[] = [
   {
     from: 1960,
     to: 1987,
@@ -97,12 +97,12 @@ const history = [
       { title: 2022, description: 'DALL-E 2 от OpenAI — революция в генеративном ИИ.' }
     ]
   }
-] as unknown as History[];
+];
 
 function MainPage() {
   return (
     <div className={cls.page}>
-      <Slider history={history}/>
+      <History history={history}/>
     </div>
   );
 }
