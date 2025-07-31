@@ -1,3 +1,6 @@
-.wrap {
-  background-color: red;
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px 120px;
 }
