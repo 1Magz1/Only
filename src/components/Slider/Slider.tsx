@@ -1,69 +1,128 @@
-import React, {useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
+import SwiperCore from 'swiper';
+import cls from './Slide.module.scss';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 export interface Slide {
-  title: string,
-  description: string,
+  title: string;
+  description: string;
 }
 
 export interface History {
   from: number;
   to: number;
-  slides: Slide[]
+  slides: Slide[];
 }
 
 interface SliderProps {
-  history: History[]
+  history: History[];
 }
 
-const Slider = ({history}: SliderProps) => {
+const Slider = ({ history }: SliderProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [swiperInstance, setSwiperInstance] = useState<any>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const nextSlide = () => {
-    setCurrentSlide(currentSlide + 1);
+  const swiperRef = useRef<SwiperCore | null>(null);
 
-    if (swiperInstance) {
-      swiperInstance.slideTo(0);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const handleSwiperInit = (swiper: SwiperCore) => {
+    swiperRef.current = swiper;
+    setActiveIndex(swiper.activeIndex);
+    swiper.on('slideChange', () => {
+      setActiveIndex(swiper.activeIndex);
+    });
+  };
+
+  const nextPeriod = () => {
+    if (currentSlide < history.length - 1) {
+      setCurrentSlide((prev) => prev + 1);
+      swiperRef.current?.slideTo(0);
+      setActiveIndex(0);
     }
   };
 
-  const prevSlide = () => {
-    setCurrentSlide(currentSlide - 1);
-
-    if (swiperInstance) {
-      swiperInstance.slideTo(0);
+  const prevPeriod = () => {
+    if (currentSlide > 0) {
+      setCurrentSlide((prev) => prev - 1);
+      swiperRef.current?.slideTo(0);
+      setActiveIndex(0);
     }
-  }
+  };
+
+  const currentSlidesLength = history[currentSlide].slides.length;
+  const slidesPerView = isMobile ? 1 : 4;
 
   return (
     <div>
-      <span>{currentSlide + 1}/{history.length}</span>
-      <button onClick={prevSlide} disabled={currentSlide + 1 === 1}>
-        Prev
-      </button>
-      <button onClick={nextSlide} disabled={currentSlide === history.length - 1}>
-        Next
-      </button>
+      <div className={cls.periodNavigation}>
+        <span>{currentSlide + 1}/{history.length}</span>
+        <div>
+          <button
+            className={cls.navButton}
+            onClick={prevPeriod}
+            disabled={currentSlide === 0}
+          >
+            {'<'}
+          </button>
+          <button
+            className={cls.navButton}
+            onClick={nextPeriod}
+            disabled={currentSlide === history.length - 1}
+          >
+            {'>'}
+          </button>
+        </div>
+      </div>
+
       <Swiper
-        onSwiper={setSwiperInstance}
+        onInit={handleSwiperInit}
         modules={[Navigation, Pagination]}
-        navigation
-        pagination={{ clickable: true }}
+        pagination={{
+          clickable: true,
+          dynamicBullets: true,
+          enabled: isMobile,
+        }}
         spaceBetween={20}
-        slidesPerView={4}
+        slidesPerView={slidesPerView}
       >
-        {history[currentSlide].slides.map((slide) =>
+        {history[currentSlide].slides.map((slide) => (
           <SwiperSlide key={slide.title}>
-            <span>{slide.title}</span>
-            <p>{slide.description}</p>
+            <h3 className={cls.cardTitle}>{slide.title}</h3>
+            <p className={cls.cardText}>{slide.description}</p>
           </SwiperSlide>
-        )}
+        ))}
       </Swiper>
+
+      <div className={cls.innerNavButtons}>
+        <button
+          className={cls.navButton}
+          onClick={() => swiperRef.current?.slidePrev()}
+          disabled={activeIndex === 0}
+        >
+          {'<'}
+        </button>
+        <button
+          className={cls.navButton}
+          onClick={() => swiperRef.current?.slideNext()}
+          disabled={activeIndex >= currentSlidesLength - slidesPerView}
+        >
+          {'>'}
+        </button>
+      </div>
     </div>
   );
 };
