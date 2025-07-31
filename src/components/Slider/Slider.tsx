@@ -68,6 +68,10 @@ const Slider = ({ history }: SliderProps) => {
 
   return (
     <div>
+      <div className={cls.innerHistoryTitle}>
+        <h2 className={cls.historyTitle}>{history[currentSlide].from}</h2>
+        <h2 className={cls.historyTitle}>{history[currentSlide].to}</h2>
+      </div>
       <div className={cls.periodNavigation}>
         <span>{currentSlide + 1}/{history.length}</span>
         <div>
