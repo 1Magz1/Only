@@ -1,13 +1,12 @@
-import { useEffect, useRef, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper/modules';
-import SwiperCore from 'swiper';
+import { useEffect, useState } from 'react';
 import cls from './History.module.scss';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Quantity from "components/Quantity/Quantity";
 import CircleWithPoints from "components/CircleWithPoints/CircleWithPoints";
+import PeriodNavigation from "components/PeriodNavigation/PeriodNavigation";
+import HistorySlider from "components/HistorySlider/HistorySlider";
 
 export interface Slide {
   title: number;
@@ -27,9 +26,6 @@ interface SliderProps {
 const History = ({ history }: SliderProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  const swiperRef = useRef<SwiperCore | null>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -41,99 +37,42 @@ const History = ({ history }: SliderProps) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const handleSwiperInit = (swiper: SwiperCore) => {
-    swiperRef.current = swiper;
-    setActiveIndex(swiper.activeIndex);
-    swiper.on('slideChange', () => {
-      setActiveIndex(swiper.activeIndex);
-    });
-  };
-
   const nextPeriod = () => {
     if (currentSlide < history.length - 1) {
       setCurrentSlide((prev) => prev + 1);
-      swiperRef.current?.slideTo(0);
-      setActiveIndex(0);
     }
   };
 
   const prevPeriod = () => {
     if (currentSlide > 0) {
       setCurrentSlide((prev) => prev - 1);
-      swiperRef.current?.slideTo(0);
-      setActiveIndex(0);
     }
   };
 
   const onPointClick = (index: number) => {
-    setCurrentSlide(index)
-  }
-
-  const currentSlidesLength = history[currentSlide].slides.length;
-  const slidesPerView = isMobile ? 1 : 4;
+    setCurrentSlide(index);
+  };
 
   return (
     <div>
-      <CircleWithPoints pointCount={6} onPointClick={onPointClick}/>
+      <CircleWithPoints pointCount={6} onPointClick={onPointClick} />
+
       <div className={cls.innerHistoryTitle}>
-        <Quantity className={cls.historyTitle} value={history[currentSlide].from}/>
-        <Quantity className={cls.historyTitle} value={history[currentSlide].to}/>
-      </div>
-      <div className={cls.periodNavigation}>
-        <span>{currentSlide + 1}/{history.length}</span>
-        <div>
-          <button
-            className={cls.navButton}
-            onClick={prevPeriod}
-            disabled={currentSlide === 0}
-          >
-            {'<'}
-          </button>
-          <button
-            className={cls.navButton}
-            onClick={nextPeriod}
-            disabled={currentSlide === history.length - 1}
-          >
-            {'>'}
-          </button>
-        </div>
+        <Quantity className={cls.historyTitle} value={history[currentSlide].from} />
+        <Quantity className={cls.historyTitle} value={history[currentSlide].to} />
       </div>
 
-      <Swiper
-        onInit={handleSwiperInit}
-        modules={[Navigation, Pagination]}
-        pagination={{
-          clickable: true,
-          dynamicBullets: true,
-          enabled: isMobile,
-        }}
-        spaceBetween={20}
-        slidesPerView={slidesPerView}
-      >
-        {history[currentSlide].slides.map((slide) => (
-          <SwiperSlide key={slide.title}>
-            <h3 className={cls.cardTitle}>{slide.title}</h3>
-            <p className={cls.cardText}>{slide.description}</p>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      <PeriodNavigation
+        currentSlide={currentSlide}
+        totalSlides={history.length}
+        onPrev={prevPeriod}
+        onNext={nextPeriod}
+      />
 
-      <div className={cls.innerNavButtons}>
-        <button
-          className={cls.navButton}
-          onClick={() => swiperRef.current?.slidePrev()}
-          disabled={activeIndex === 0}
-        >
-          {'<'}
-        </button>
-        <button
-          className={cls.navButton}
-          onClick={() => swiperRef.current?.slideNext()}
-          disabled={activeIndex >= currentSlidesLength - slidesPerView}
-        >
-          {'>'}
-        </button>
-      </div>
+      <HistorySlider
+        slides={history[currentSlide].slides}
+        isMobile={isMobile}
+      />
     </div>
   );
 };
