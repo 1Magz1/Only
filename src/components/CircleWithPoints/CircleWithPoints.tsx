@@ -10,28 +10,22 @@ interface Point {
 interface CircleWithPointsProps {
   pointCount: number;
   circleSize?: number;
-  pointColor?: string;
-  pointSize?: number;
-  circleColor?: string;
-  circleBorderWidth?: number;
+  activePoint: number;
   onPointClick: (index: number) => void;
 }
 
 const CircleWithPoints = (
   {
     pointCount,
+    activePoint,
     circleSize = 530,
-    pointColor = '#42567A',
-    pointSize = 6,
-    circleColor = '#42567A',
-    circleBorderWidth = 1,
     onPointClick,
   }: CircleWithPointsProps) => {
   const [points, setPoints] = useState<Point[]>([]);
 
   useEffect(() => {
     calculatePoints();
-  }, [pointCount, circleSize, pointSize]);
+  }, [pointCount, circleSize]);
 
   const calculatePoints = () => {
     const newPoints: Point[] = [];
@@ -53,13 +47,11 @@ const CircleWithPoints = (
   };
 
   return (
-    <div style={{
-      position: 'relative',
+    <div
+      className={cls.circle}
+      style={{
       width: `${circleSize}px`,
       height: `${circleSize}px`,
-      border: `${circleBorderWidth}px solid ${circleColor}`,
-      borderRadius: '50%',
-      margin: '20px'
     }}>
       {points.map(point => (
         <div
@@ -67,13 +59,12 @@ const CircleWithPoints = (
           style={{
             left: `${point.x}px`,
             top: `${point.y}px`,
-            width: `${pointSize}px`,
-            height: `${pointSize}px`,
-            backgroundColor: pointColor,
           }}
-          className={cls.points}
+          className={`${cls.point} ${point.id === activePoint ? cls.active : ''}`}
           onClick={() => onPointClick(point.id)}
-        />
+        >
+          <span className={cls.counter}>{point.id + 1}</span>
+        </div>
       ))}
     </div>
   );

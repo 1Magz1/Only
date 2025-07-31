@@ -55,7 +55,7 @@ const History = ({ history }: SliderProps) => {
 
   return (
     <div>
-      <CircleWithPoints pointCount={6} onPointClick={onPointClick} />
+      <CircleWithPoints activePoint={currentSlide} pointCount={6} onPointClick={onPointClick} />
 
       <div className={cls.innerHistoryTitle}>
         <Quantity className={cls.historyTitle} value={history[currentSlide].from} />
