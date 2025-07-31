@@ -7,6 +7,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import Quantity from "components/Quantity/Quantity";
+import CircleWithPoints from "components/CircleWithPoints/CircleWithPoints";
 
 export interface Slide {
   title: string;
@@ -64,11 +65,16 @@ const Slider = ({ history }: SliderProps) => {
     }
   };
 
+  const onPointClick = (index: number) => {
+    setCurrentSlide(index)
+  }
+
   const currentSlidesLength = history[currentSlide].slides.length;
   const slidesPerView = isMobile ? 1 : 4;
 
   return (
     <div>
+      <CircleWithPoints pointCount={6} onPointClick={onPointClick}/>
       <div className={cls.innerHistoryTitle}>
         <Quantity className={cls.historyTitle} value={history[currentSlide].from}/>
         <Quantity className={cls.historyTitle} value={history[currentSlide].to}/>
