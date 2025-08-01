@@ -34,7 +34,7 @@
     width: 56px;
     height: 56px;
     background-color: white;
-    border: 2px solid #42567A;
+    border: 1px solid #42567A;
     .counter {
       opacity: 1;
     }
@@ -42,6 +42,7 @@
 
   &.active {
     .label--active {
+      transition: opacity 0.5s ease;
       opacity: 1;
     }
   }
@@ -69,7 +70,6 @@
   font-size: 20px;
   line-height: 30px;
   transform: translate(50px, 0);
-  transition: opacity 0.5s ease;
   opacity: 0;
 }
 
