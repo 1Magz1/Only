@@ -26,11 +26,17 @@ export const loaders = ({isDev}: BuildOptions): webpack.RuleSetRule[] => {
 
   const scssLoader = buildCssLoader(isDev)
 
+  const svgLoader = {
+    test: /\.svg$/,
+    use: ['@svgr/webpack'],
+  }
+
 
   return [
     fileLoader,
     typescriptLoader,
     cssLoader,
-    scssLoader
+    scssLoader,
+    svgLoader
   ]
 }
