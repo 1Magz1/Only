@@ -1,24 +1,20 @@
-.periodCounter {
-  color: #42567A
-}
-
-.innerHistoryTitle {
+.wrapper {
   display: flex;
   justify-content: center;
   gap: 120px;
 }
 
-.historyTitle {
+.title {
   font-size: 200px;
   font-weight: bold;
   margin: 0;
 
   &:first-child {
-    color: #5D5FEF
+    color: var(--info-color)
   }
 
   &:last-child {
-    color: #EF5DA8
+    color: var(--success-color)
   }
 }
 

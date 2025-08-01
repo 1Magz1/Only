@@ -60,11 +60,21 @@ const History = ({ history }: SliderProps) => {
 
   return (
     <div>
-      <CircleWithPoints activePoint={currentSlide} pointsList={pointsList} onPointClick={onPointClick} />
+      <CircleWithPoints
+        activePoint={currentSlide}
+        pointsList={pointsList}
+        onPointClick={onPointClick}
+      />
 
-      <div className={cls.innerHistoryTitle}>
-        <Quantity className={cls.historyTitle} value={history[currentSlide].from} />
-        <Quantity className={cls.historyTitle} value={history[currentSlide].to} />
+      <div className={cls.wrapper}>
+        <Quantity
+          className={cls.title}
+          value={history[currentSlide].from}
+        />
+        <Quantity
+          className={cls.title}
+          value={history[currentSlide].to}
+        />
       </div>
 
       <PeriodNavigation
