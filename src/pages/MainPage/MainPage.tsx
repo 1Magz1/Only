@@ -4,6 +4,7 @@ const history: DatePoint[] = [
   {
     from: 1960,
     to: 1987,
+    title: 'Технологии',
     slides: [
       { title: 1960, description: 'Первый лазер был продемонстрирован Теодором Майманом.' },
       { title: 1961, description: 'Юрий Гагарин стал первым человеком в космосе.' },
@@ -26,6 +27,7 @@ const history: DatePoint[] = [
   {
     from: 1987,
     to: 1999,
+    title: 'Кино',
     slides: [
       { title: 1987, description: 'Microsoft выпускает Windows 2.0. Начало эпохи графических интерфейсов.' },
       { title: 1988, description: 'Создание первого интернет-червя Морриса — толчок к развитию кибербезопасности.' },
@@ -45,6 +47,7 @@ const history: DatePoint[] = [
   {
     from: 1992,
     to: 1997,
+    title: 'Литература',
     slides: [
       { title: 1992, description: 'Нобелевская премия по литературе — Дерек Уолкотт.' },
       { title: 1993, description: 'Выход игры "Doom" — начало эры 3D-шутеров.' },
@@ -57,6 +60,7 @@ const history: DatePoint[] = [
   {
     from: 1997,
     to: 2002,
+    title: '',
     slides: [
       { title: 1997, description: 'Запуск сервиса Netflix — будущего лидера стриминга.' },
       { title: 1998, description: 'Основание PayPal — революция в онлайн-платежах.' },
@@ -69,6 +73,7 @@ const history: DatePoint[] = [
   {
     from: 2002,
     to: 2015,
+    title: '',
     slides: [
       { title: 2003, description: 'Запуск Skype — революция в онлайн-общении.' },
       { title: 2004, description: 'Основание Facebook — начало эры социальных сетей.' },
@@ -86,6 +91,7 @@ const history: DatePoint[] = [
   {
     from: 2015,
     to: 2022,
+    title: 'Наука',
     slides: [
       { title: 2015, description: 'Парижское соглашение по климату — глобальная экологическая инициатива.' },
       { title: 2016, description: 'AlphaGo побеждает чемпиона по игре Го — прорыв в ИИ.' },

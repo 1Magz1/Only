@@ -16,6 +16,7 @@ export interface Slide {
 export interface DatePoint {
   from: number;
   to: number;
+  title: string;
   slides: Slide[];
 }
 
@@ -53,9 +54,13 @@ const History = ({ history }: SliderProps) => {
     setCurrentSlide(index);
   };
 
+  const pointsList = history.map((item) => {
+    return {title: item.title}
+  })
+
   return (
     <div>
-      <CircleWithPoints activePoint={currentSlide} pointCount={history.length} onPointClick={onPointClick} />
+      <CircleWithPoints activePoint={currentSlide} pointsList={pointsList} onPointClick={onPointClick} />
 
       <div className={cls.innerHistoryTitle}>
         <Quantity className={cls.historyTitle} value={history[currentSlide].from} />
