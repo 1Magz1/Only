@@ -16,7 +16,7 @@ const PeriodNavigation = (props: PeriodNavigationProps) => {
 
   return (
     <div className={`${cls.wrapper} ${clasName}`}>
-      <span>{count}/{total}</span>
+      <span className={cls.label}>{count}/{total}</span>
       <div>
         <button
           className={cls.button}
