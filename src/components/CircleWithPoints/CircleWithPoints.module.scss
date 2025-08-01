@@ -2,7 +2,15 @@
   position: relative;
   border-radius: 50%;
   margin: 20px;
-  border: 1px solid #42567A;
+  border: 1px solid var(--primary-color);
+}
+
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .point {
@@ -14,9 +22,9 @@
   transform: translate(-50%, -50%);
   width: 6px;
   height: 6px;
-  background-color: #42567A;
+  background-color: var(--primary-color);
   cursor: pointer;
-
+  transition: width 0.5s ease, height 0.5s ease;
 
   &:after {
     content: "";
@@ -28,7 +36,7 @@
     padding: 10px;
     cursor: pointer;
   }
-  transition: width 0.5s ease, height 0.5s ease;
+
   &:hover,
   &.active {
     width: 56px;
@@ -50,16 +58,6 @@
 
 .counter {
   opacity: 0;
-  font-size: 20px;
-  line-height: 30px;
-}
-
-.circleContainer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
 }
 
 .label {
@@ -67,12 +65,10 @@
   top: 0;
   left: 0;
   font-weight: 700;
-  font-size: 20px;
-  line-height: 30px;
   transform: translate(50px, 0);
   opacity: 0;
 }
 
-.textContainer {
+.wrapper {
   transition: transform 0.9s ease-in-out;
 }

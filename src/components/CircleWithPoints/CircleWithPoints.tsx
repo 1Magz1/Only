@@ -24,7 +24,7 @@ const CircleWithPoints = (
     pointsList,
     activePoint,
     circleSize = 530,
-    angleOffset = 45,
+    angleOffset = 66,
     onPointClick,
   }: CircleWithPointsProps) => {
   const [points, setPoints] = useState<Point[]>([]);
@@ -91,7 +91,7 @@ const CircleWithPoints = (
     >
       <div
         ref={containerRef}
-        className={cls.circleContainer}
+        className={cls.container}
       >
         {points.map((point) => (
           <div
@@ -107,7 +107,7 @@ const CircleWithPoints = (
               style={{
               transform: `rotate(${-targetRotation}deg)`,
             }}
-              className={cls.textContainer}
+              className={cls.wrapper}
             >
               <span className={cls.counter}>{point.id + 1}</span>
               <span className={`${cls.label} ${isRotationComplete ? cls['label--active'] : ''}`}>{point.title}</span>
