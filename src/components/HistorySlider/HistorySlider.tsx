@@ -25,36 +25,38 @@ const HistorySlider = ({ slides, isMobile }: HistorySliderProps) => {
   };
 
   return (
-    <div>
-      <Swiper
-        onInit={handleSwiperInit}
-        modules={[Navigation, Pagination]}
-        pagination={{
-          clickable: true,
-          dynamicBullets: true,
-          enabled: isMobile,
-        }}
-        spaceBetween={20}
-        slidesPerView={slidesPerView}
-      >
-        {slides.map((slide) => (
-          <SwiperSlide key={slide.title}>
-            <h3 className={cls.cardTitle}>{slide.title}</h3>
-            <p className={cls.cardText}>{slide.description}</p>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+    <div className={cls.slider}>
+      <div className={cls.container}>
+        <Swiper
+          onInit={handleSwiperInit}
+          modules={[Navigation, Pagination]}
+          pagination={{
+            clickable: true,
+            dynamicBullets: true,
+            enabled: isMobile,
+          }}
+          spaceBetween={20}
+          slidesPerView={slidesPerView}
+        >
+          {slides.map((slide) => (
+            <SwiperSlide key={slide.title}>
+              <h3 className={cls.title}>{slide.title}</h3>
+              <p className={cls.text}>{slide.description}</p>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
 
-      <div className={cls.innerNavButtons}>
+      <div className={cls.wrapper}>
         <button
-          className={cls.navButton}
+          className={cls.button}
           onClick={() => swiperRef.current?.slidePrev()}
           disabled={activeIndex === 0}
         >
           {'<'}
         </button>
         <button
-          className={cls.navButton}
+          className={cls.button}
           onClick={() => swiperRef.current?.slideNext()}
           disabled={activeIndex >= slides.length - slidesPerView}
         >
