@@ -25,7 +25,7 @@ const HistorySlider = ({ slides, isMobile }: HistorySliderProps) => {
   };
 
   return (
-    <>
+    <div>
       <Swiper
         onInit={handleSwiperInit}
         modules={[Navigation, Pagination]}
@@ -61,7 +61,7 @@ const HistorySlider = ({ slides, isMobile }: HistorySliderProps) => {
           {'>'}
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

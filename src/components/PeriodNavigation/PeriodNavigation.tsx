@@ -3,13 +3,14 @@ import cls from './PeriodNavigation.module.scss';
 interface PeriodNavigationProps {
   currentSlide: number;
   totalSlides: number;
+  clasName?: string;
   onPrev: () => void;
   onNext: () => void;
 }
 
-const PeriodNavigation = ({ currentSlide, totalSlides, onPrev, onNext }: PeriodNavigationProps) => {
+const PeriodNavigation = ({ currentSlide, totalSlides, onPrev, onNext, clasName }: PeriodNavigationProps) => {
   return (
-    <div className={cls.periodNavigation}>
+    <div className={`${cls.periodNavigation} ${clasName}`}>
       <span>{currentSlide + 1}/{totalSlides}</span>
       <div>
         <button
