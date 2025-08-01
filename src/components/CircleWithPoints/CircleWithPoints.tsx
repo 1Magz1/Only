@@ -11,6 +11,7 @@ interface CircleWithPointsProps {
   pointCount: number;
   circleSize?: number;
   activePoint: number;
+  angleOffset?: number; // угол в градусах
   onPointClick: (index: number) => void;
 }
 
@@ -19,27 +20,30 @@ const CircleWithPoints = (
     pointCount,
     activePoint,
     circleSize = 530,
+    angleOffset = 45,
     onPointClick,
   }: CircleWithPointsProps) => {
   const [points, setPoints] = useState<Point[]>([]);
 
   useEffect(() => {
     calculatePoints();
-  }, [pointCount, circleSize]);
+  }, [pointCount, circleSize, angleOffset]);
 
   const calculatePoints = () => {
     const newPoints: Point[] = [];
     const center = circleSize / 2;
 
+    const offsetRadians = (angleOffset * Math.PI) / 180;
+
     for (let i = 0; i < pointCount; i++) {
-      const angle = (2 * Math.PI * i) / pointCount;
+      const angle = (2 * Math.PI * i) / pointCount - offsetRadians;
       const x = center + center * Math.cos(angle);
       const y = center + center * Math.sin(angle);
 
       newPoints.push({
         id: i,
         x,
-        y
+        y,
       });
     }
 
@@ -50,10 +54,11 @@ const CircleWithPoints = (
     <div
       className={cls.circle}
       style={{
-      width: `${circleSize}px`,
-      height: `${circleSize}px`,
-    }}>
-      {points.map(point => (
+        width: `${circleSize}px`,
+        height: `${circleSize}px`,
+      }}
+    >
+      {points.map((point) => (
         <div
           key={point.id}
           style={{
