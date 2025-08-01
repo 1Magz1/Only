@@ -39,6 +39,7 @@ const HistorySlider = ({ slides, isMobile }: HistorySliderProps) => {
         y: -20,
         duration: 0.4,
         onComplete: () => {
+          swiperRef.current?.slideTo(0, 0);
           setDisplayedSlides(slides);
         },
       });
@@ -65,7 +66,7 @@ const HistorySlider = ({ slides, isMobile }: HistorySliderProps) => {
 
   return (
     <div className={cls.slider}>
-      <div className={cls.container}>
+      <div>
         <Swiper
           onInit={handleSwiperInit}
           modules={[Navigation, Pagination]}
