@@ -90,3 +90,127 @@
   margin-top: 104px;
 }
 
+@media screen and (width < 1440px) {
+  .wrap {
+    padding: 0 120px 0 80px;
+  }
+
+  .wrapper {
+    left: 0;
+  }
+}
+
+@media screen and (width < 1366px) {
+  .wrap {
+    padding: 0 80px 0 80px;
+    margin: 0 20px;
+  }
+}
+
+@media screen and (width < 1200px) {
+  .year {
+    font-size: 150px;
+  }
+  .wrapper {
+    justify-content: space-between;
+  }
+}
+
+@media screen and (width < 950px) {
+  .year {
+    font-size: 120px;
+  }
+}
+
+@media screen and (width < 770px) {
+  .title {
+    font-size: 36px;
+    max-width: 200px;
+
+    &:before {
+      left: -40px;
+    }
+  }
+
+  .year {
+    font-size: 110px;
+
+    &:last-child {
+      margin-left: 20px;
+    }
+  }
+
+  .wrap {
+    padding: 0 40px 0 40px;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 250px;
+  }
+
+  .period {
+    order: 2;
+  }
+}
+
+@media screen and (width < 640px) {
+  .year {
+    font-size: 80px;
+
+    &:last-child {
+      margin-left: 10px;
+    }
+  }
+
+  .container {
+    margin-top: 75px;
+  }
+}
+
+@media screen and (width < 590px) {
+  .circle {
+    display: none;
+  }
+
+  .wrap {
+    &:before {
+      display: none;
+    }
+  }
+}
+
+@media screen and (width < 520px) {
+  .year {
+    font-size: 56px;
+
+    &:last-child {
+      margin-left: 10px;
+    }
+  }
+
+  .wrap {
+    margin: 0;
+    padding: 0 20px;
+
+    &:after {
+      top: 280px;
+    }
+  }
+
+  .wrapper {
+    margin-top: 56px;
+  }
+
+  .title {
+    font-size: 20px;
+    max-width: 150px;
+    margin-top: 60px;
+
+    &:before {
+      display: none;
+    }
+  }
+}
+

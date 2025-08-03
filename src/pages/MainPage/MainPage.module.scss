@@ -4,7 +4,19 @@
   margin: 0 auto;
   width: 100%;
   max-width: 1440px;
-  height: 100vh;
   position: relative;
   left: 80px;
+}
+
+
+@media screen and (width < 1900px) {
+  .page {
+    max-width: 1280px;
+  }
+}
+
+@media screen and (width < 1750px) {
+  .page {
+    left: 0;
+  }
 }

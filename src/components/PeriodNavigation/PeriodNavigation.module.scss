@@ -24,3 +24,26 @@
     background-color: transparent;
   }
 }
+
+@media screen and (width < 770px) {
+  .wrapper {
+    gap: 10px;
+  }
+
+  .button {
+    &:first-child{
+      margin-right: 10px;
+    }
+  }
+}
+
+@media screen and (width < 620px) {
+  .button {
+    width: 25px;
+    height: 25px;
+
+    &:first-child{
+      margin-right: 8px;
+    }
+  }
+}

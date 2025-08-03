@@ -9,22 +9,26 @@ import gsap from 'gsap';
 
 interface HistorySliderProps {
   slides: Slide[];
-  isMobile: boolean;
 }
 
-const HistorySlider = ({ slides, isMobile }: HistorySliderProps) => {
+const HistorySlider = ({ slides }: HistorySliderProps) => {
   const swiperRef = useRef<SwiperCore | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [displayedSlides, setDisplayedSlides] = useState<Slide[]>(slides);
-
-  const slidesPerView = isMobile ? 1 : 4;
+  const [slidesPerView, setSlidesPerView] = useState(1);
 
   const handleSwiperInit = (swiper: SwiperCore) => {
     swiperRef.current = swiper;
     setActiveIndex(swiper.activeIndex);
+    setSlidesPerView(swiper.params.slidesPerView as number);
+
     swiper.on('slideChange', () => {
       setActiveIndex(swiper.activeIndex);
+    });
+
+    swiper.on('resize', () => {
+      setSlidesPerView(swiper.params.slidesPerView as number);
     });
   };
 
@@ -64,19 +68,36 @@ const HistorySlider = ({ slides, isMobile }: HistorySliderProps) => {
     return () => ctx.revert();
   }, [displayedSlides]);
 
+  const totalPages = Math.ceil(displayedSlides.length / slidesPerView);
+
   return (
     <div className={cls.slider}>
       <div>
         <Swiper
           onInit={handleSwiperInit}
           modules={[Navigation, Pagination]}
-          pagination={{
-            clickable: true,
-            dynamicBullets: true,
-            enabled: isMobile,
-          }}
+          className={cls.swiper}
           spaceBetween={20}
-          slidesPerView={slidesPerView}
+          breakpoints={{
+            0: {
+              slidesPerView: 1.7,
+              pagination: {
+                enabled: true
+              }
+            },
+            590: {
+              slidesPerView: 2.3,
+            },
+            1024: {
+              slidesPerView: 3,
+            },
+            1280: {
+              slidesPerView: 4,
+              pagination: {
+                enabled: false
+              }
+            },
+          }}
         >
           {displayedSlides.map((slide, idx) => (
             <SwiperSlide key={slide.title}>
@@ -102,11 +123,20 @@ const HistorySlider = ({ slides, isMobile }: HistorySliderProps) => {
         </button>
         <button
           className={cls.button}
+          disabled={activeIndex === totalPages - 1}
           onClick={() => swiperRef.current?.slideNext()}
-          disabled={activeIndex >= displayedSlides.length - slidesPerView}
         >
           <RightIcon />
         </button>
+      </div>
+      <div className={cls.customPagination}>
+        {Array.from({length: totalPages}).map((_, idx) => (
+          <span
+            key={idx}
+            className={`${cls.dot} ${idx === activeIndex ? cls.active : ''}`}
+            onClick={() => swiperRef.current?.slideTo(idx)}
+          />
+        ))}
       </div>
     </div>
   );

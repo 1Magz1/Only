@@ -26,17 +26,6 @@ interface SliderProps {
 
 const History = ({ history }: SliderProps) => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   const nextPeriod = () => {
     if (currentSlide < history.length - 1) {
@@ -93,7 +82,6 @@ const History = ({ history }: SliderProps) => {
 
         <HistorySlider
           slides={history[currentSlide].slides}
-          isMobile={isMobile}
         />
       </div>
     </div>
